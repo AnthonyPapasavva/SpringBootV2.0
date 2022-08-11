@@ -14,7 +14,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
 	@Query(value = "SELECT * FROM user", nativeQuery = true)
 	public List<User> allFromUser();
 
-	@Query(value = "SELECT * FROM doctor WHERE username = ?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM user WHERE username = ?1", nativeQuery = true)
 	public List<User> sameNameSelect(String name);
 
 }
