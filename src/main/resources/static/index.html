@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GP Appointment Planner</title>
+    <link rel="stylesheet" href="CalendarStyle.css">
+
+</head>
+    <body>
+        
+        <div id="container">
+
+            <div id="myHeader">
+                <div id="monthDisplay"></div>
+                <div>
+                    <button id="homeButton">Home</button>
+                    <button id="previousButton">Previous</button>
+                    <button id="nextButton">Next</button>
+                </div>
+            </div>
+    
+            <div id="weekdays">
+            <div>Monday</div>
+            <div>Tuesday</div>
+            <div>Wednesday</div>
+            <div>Thursday</div>
+            <div>Friday</div>
+            <div>Saturday</div>
+            <div>Sunday</div>
+            </div>
+    
+            <div id="calendar"></div>
+
+        </div>
+
+        <div id="newAppointmentModal">
+
+            <h2>New Appointment</h2>
+            <input id="appointmentTitleInput" placeholder="Appointment Title" />
+            <button id="saveButton">Save</button>
+            <button id="cancelButton">Cancel</button>
+
+        </div>
+
+        <div id="deleteAppointmentModal">
+
+            <h2>Appointment</h2>
+            <p id="appointmentText"></p>
+            <button id="deleteButton">Delete</button>
+            <button id="closeButton">Close</button>
+
+        </div>
+
+        <div id="modalBackDrop"></div>
+
+        <script src="CalendarScript.js"></script>
+    </body>
+</html>
