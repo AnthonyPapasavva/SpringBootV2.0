@@ -11,10 +11,10 @@ import com.qa.springbootproject.domain.Person;
 @Repository
 public interface PersonRepo extends JpaRepository<Person, Long> {
 
-	@Query(value = "SELECT * FROM user", nativeQuery = true)
+	@Query(value = "SELECT * FROM person", nativeQuery = true)
 	public List<Person> allFromUser();
 
-	@Query(value = "SELECT * FROM user WHERE username = ?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM person WHERE username = ?1", nativeQuery = true)
 	public List<Person> sameNameSelect(String name);
 
 }
