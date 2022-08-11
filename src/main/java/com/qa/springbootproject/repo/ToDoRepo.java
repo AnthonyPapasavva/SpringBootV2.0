@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.qa.springbootproject.ToDo;
+import com.qa.springbootproject.domain.ToDo;
 
 @Repository
 public interface ToDoRepo extends JpaRepository<ToDo, Long> {

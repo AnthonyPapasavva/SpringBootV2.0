@@ -6,15 +6,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.qa.springbootproject.User;
+import com.qa.springbootproject.domain.Person;
 
 @Repository
-public interface UserRepo extends JpaRepository<User, Long> {
+public interface PersonRepo extends JpaRepository<Person, Long> {
 
 	@Query(value = "SELECT * FROM user", nativeQuery = true)
-	public List<User> allFromUser();
+	public List<Person> allFromUser();
 
-	@Query(value = "SELECT * FROM doctor WHERE username = ?1", nativeQuery = true)
-	public List<User> sameNameSelect(String name);
+	@Query(value = "SELECT * FROM user WHERE username = ?1", nativeQuery = true)
+	public List<Person> sameNameSelect(String name);
 
 }

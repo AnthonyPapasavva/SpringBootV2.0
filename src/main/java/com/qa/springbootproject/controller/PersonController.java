@@ -14,33 +14,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.springbootproject.User;
-import com.qa.springbootproject.service.UserService;
+import com.qa.springbootproject.domain.Person;
+import com.qa.springbootproject.service.PersonService;
 
 @RestController
 @RequestMapping("localhost:8085")
-public class UserController {
+public class PersonController {
 
 	@Autowired
-	UserService service;
+	PersonService service;
 
 	@PostMapping("/createUser")
-	public ResponseEntity<User> createUser(@RequestBody User user) {
-		User createUser = service.addUser(user);
-		return new ResponseEntity<User>(createUser, HttpStatus.CREATED);
+	public ResponseEntity<Person> createUser(@RequestBody Person user) {
+		Person createUser = service.addUser(user);
+		return new ResponseEntity<Person>(createUser, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/read")
-	public ResponseEntity<List<User>> getUsers() {
-		List<User> userData = service.readAllUsers();
-		return new ResponseEntity<List<User>>(userData, HttpStatus.OK);
+	@GetMapping("/readUser")
+	public ResponseEntity<List<Person>> getUsers() {
+		List<Person> userData = service.readAllUsers();
+		return new ResponseEntity<List<Person>>(userData, HttpStatus.OK);
 	}
 
 	// May need to change the {id} to respective userId in controllers **
 	@PutMapping("/updateUser/{id}")
-	public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable Long userId) {
-		User updateUser = service.updateUser(user, userId);
-		return new ResponseEntity<User>(updateUser, HttpStatus.I_AM_A_TEAPOT);
+	public ResponseEntity<Person> updateUser(@RequestBody Person user, @PathVariable Long userId) {
+		Person updateUser = service.updateUser(user, userId);
+		return new ResponseEntity<Person>(updateUser, HttpStatus.I_AM_A_TEAPOT);
 	}
 
 	@DeleteMapping("/deleteUser/{id}")
