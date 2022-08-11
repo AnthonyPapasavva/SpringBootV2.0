@@ -1,4 +1,4 @@
-package com.qa.springbootproject;
+package com.qa.springbootproject.domain;
 
 import java.util.Objects;
 
@@ -14,8 +14,8 @@ import javax.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
-@Table(name = "User")
-public class User {
+@Table(name = "Person")
+public class Person {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,16 +27,16 @@ public class User {
 	private String username;
 
 	@Autowired
-	public User() {
+	public Person() {
 	}
 
 	@Autowired
-	public User(String username) {
+	public Person(String username) {
 		this.username = username;
 	}
 
 	@Autowired
-	public User(Long userId, String username) {
+	public Person(Long userId, String username) {
 		this.userId = userId;
 		this.username = username;
 	}
@@ -70,7 +70,7 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Person other = (Person) obj;
 		return Objects.equals(username, other.username);
 	}
 
