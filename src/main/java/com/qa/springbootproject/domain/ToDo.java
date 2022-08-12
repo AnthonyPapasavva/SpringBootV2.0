@@ -8,28 +8,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "To_Do")
+@Table
 public class ToDo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long toDoId;
 
-	@Column(name = "Title")
+	@Column(nullable = false)
 	@Size(min = 1, max = 40)
-	@NotNull
 	private String toDoTitle;
 
-	@Column(name = "Item")
+	@Column(nullable = false)
 	@Size(min = 1, max = 140)
 	private String toDoItem;
 
-	@Column(name = "Complete")
-	@NotNull
+	@Column(nullable = false)
 	private Boolean toDoComplete;
 
 	public ToDo() {
