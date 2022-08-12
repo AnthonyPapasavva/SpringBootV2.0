@@ -15,12 +15,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qa.springbootproject.domain.ToDo;
-import com.qa.springbootproject.service.ToDoService;
+import com.qa.springbootproject.domain.Person;
+import com.qa.springbootproject.service.PersonService;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest
-public class ToDoControllerUnitTest {
+public class PersonControllerUnitTest {
 
 	@Autowired
 	private MockMvc mvc;
@@ -29,18 +29,18 @@ public class ToDoControllerUnitTest {
 	private ObjectMapper mapper;
 
 	@MockBean
-	private ToDoService service;
+	private PersonService service;
 
 	@Test
-	public void createToDoTest() throws Exception {
-		ToDo testToDo = new ToDo("Get Haircut", "Whatever details the user wants to put", false);
-		String testToDoAsJSON = this.mapper.writeValueAsString(testToDo);
+	public void createPersonTest() throws Exception {
+		Person testPerson = new Person("Anthony Papasavva");
+		String testPersonAsJSON = this.mapper.writeValueAsString(testPerson);
 
-		Mockito.when(this.service.addToDo(testToDo)).thenReturn(testToDo);
+		Mockito.when(this.service.addPerson(testPerson)).thenReturn(testPerson);
 
-		mvc.perform(post("/home/createToDo").content(testToDoAsJSON).contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isCreated()).andExpect(content().json(testToDoAsJSON));
+		mvc.perform(post("/home/createPerson").content(testPersonAsJSON).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isCreated()).andExpect(content().json(testPersonAsJSON));
 
-		Mockito.verify(this.service, Mockito.times(1)).addToDo(testToDo);
+		Mockito.verify(this.service, Mockito.times(1)).addPerson(testPerson);
 	}
 }

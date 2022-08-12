@@ -3,7 +3,6 @@ package com.qa.springbootproject.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qa.springbootproject.domain.Person;
@@ -12,53 +11,50 @@ import com.qa.springbootproject.repo.PersonRepo;
 @Service
 public class PersonService {
 
-	@Autowired
 	private PersonRepo repo;
 
 	public PersonService() {
-
 	}
 
-	@Autowired
 	public PersonService(PersonRepo repo) {
 		this.repo = repo;
 	}
 
-	public Person addUser(Person user) {
-		return this.repo.save(user);
+	public Person addPerson(Person person) {
+		return this.repo.save(person);
 	}
 
-	public List<Person> addManyUsers(List<Person> users) {
-		return this.repo.saveAll(users);
+	public List<Person> addManyPersons(List<Person> persons) {
+		return this.repo.saveAll(persons);
 	}
 
-	public Person findById(Long userId) {
-		Optional<Person> existingUser = this.repo.findById(userId);
-		if (existingUser.get() instanceof Person)
-			return existingUser.get();
+	public Person findById(Long personId) {
+		Optional<Person> existingPerson = this.repo.findById(personId);
+		if (existingPerson.get() instanceof Person)
+			return existingPerson.get();
 		return null;
 	}
 
-	public List<Person> readAllUsers() {
+	public List<Person> readAllPersons() {
 		return this.repo.findAll();
 	}
 
-	public Person updateUser(Person updateUser, Long userId) {
-		Optional<Person> existingUser = this.repo.findById(userId);
+	public Person updatePerson(Person updatePerson, Long personId) {
+		Optional<Person> existingPerson = this.repo.findById(personId);
 
-		if (existingUser.get() instanceof Person) {
-			Person oldUser = existingUser.get();
+		if (existingPerson.get() instanceof Person) {
+			Person oldPerson = existingPerson.get();
 
-			oldUser.setUsername(updateUser.getUsername());
+			oldPerson.setUsername(updatePerson.getUsername());
 
-			return this.repo.save(oldUser);
+			return this.repo.save(oldPerson);
 		}
 		return null;
 	}
 
-	public boolean deleteUser(Long userId) {
-		this.repo.deleteById(userId);
-		boolean exists = this.repo.existsById(userId);
+	public boolean deletePerson(Long personId) {
+		this.repo.deleteById(personId);
+		boolean exists = this.repo.existsById(personId);
 		return !exists;
 	}
 

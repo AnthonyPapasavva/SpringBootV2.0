@@ -2,7 +2,6 @@ package com.qa.springbootproject.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,11 +17,10 @@ import com.qa.springbootproject.domain.ToDo;
 import com.qa.springbootproject.service.ToDoService;
 
 @RestController
-@RequestMapping("localhost:8085")
+@RequestMapping("/home")
 // 'localhost:8085/ may have to precede: create, read, etc.
 public class ToDoController {
 
-	@Autowired
 	ToDoService service;
 
 	@PostMapping("/createToDo")
@@ -38,13 +36,13 @@ public class ToDoController {
 	}
 
 	// May need to change the {id} to respective toDoId in controllers **
-	@PutMapping("/updateToDo/{id}")
+	@PutMapping("/updateToDo/{toDoId}")
 	public ResponseEntity<ToDo> updateToDo(@RequestBody ToDo toDo, @PathVariable Long toDoId) {
 		ToDo updateToDo = service.updateToDo(toDo, toDoId);
 		return new ResponseEntity<ToDo>(updateToDo, HttpStatus.I_AM_A_TEAPOT);
 	}
 
-	@DeleteMapping("/deleteToDo/{id}")
+	@DeleteMapping("/deleteToDo/{toDoId}")
 	public ResponseEntity<Boolean> deleteToDo(@PathVariable Long toDoId) {
 		Boolean deletedToDo = service.deleteToDo(toDoId);
 		return (deletedToDo) ? new ResponseEntity<Boolean>(HttpStatus.NO_CONTENT)

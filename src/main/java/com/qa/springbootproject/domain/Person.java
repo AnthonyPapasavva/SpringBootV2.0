@@ -8,10 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name = "Person")
@@ -19,34 +16,30 @@ public class Person {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long userId;
+	private Long personId;
 
-	@Column(name = "Username")
+	@Column(nullable = false)
 	@Size(min = 1, max = 40)
-	@NotNull
 	private String username;
 
-	@Autowired
 	public Person() {
 	}
 
-	@Autowired
 	public Person(String username) {
 		this.username = username;
 	}
 
-	@Autowired
-	public Person(Long userId, String username) {
-		this.userId = userId;
+	public Person(Long personId, String username) {
+		this.personId = personId;
 		this.username = username;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public Long getPersonId() {
+		return personId;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setPersonId(Long personId) {
+		this.personId = personId;
 	}
 
 	public String getUsername() {
@@ -76,7 +69,7 @@ public class Person {
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", username=" + username + "]";
+		return "Person [personId=" + personId + ", username=" + username + "]";
 	}
 
 }
