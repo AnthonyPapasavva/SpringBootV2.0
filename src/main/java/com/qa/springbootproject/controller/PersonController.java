@@ -18,35 +18,35 @@ import com.qa.springbootproject.domain.Person;
 import com.qa.springbootproject.service.PersonService;
 
 @RestController
-@RequestMapping("localhost:8085")
+@RequestMapping("/home")
 public class PersonController {
 
 	@Autowired
 	PersonService service;
 
-	@PostMapping("/createUser")
-	public ResponseEntity<Person> createUser(@RequestBody Person user) {
-		Person createUser = service.addUser(user);
-		return new ResponseEntity<Person>(createUser, HttpStatus.CREATED);
+	@PostMapping("/createPerson")
+	public ResponseEntity<Person> createPerson(@RequestBody Person person) {
+		Person createPerson = service.addPerson(person);
+		return new ResponseEntity<Person>(createPerson, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/readUser")
-	public ResponseEntity<List<Person>> getUsers() {
-		List<Person> userData = service.readAllUsers();
-		return new ResponseEntity<List<Person>>(userData, HttpStatus.OK);
+	@GetMapping("/readPerson")
+	public ResponseEntity<List<Person>> getPersons() {
+		List<Person> personData = service.readAllPersons();
+		return new ResponseEntity<List<Person>>(personData, HttpStatus.OK);
 	}
 
-	// May need to change the {id} to respective userId in controllers **
-	@PutMapping("/updateUser/{id}")
-	public ResponseEntity<Person> updateUser(@RequestBody Person user, @PathVariable Long userId) {
-		Person updateUser = service.updateUser(user, userId);
-		return new ResponseEntity<Person>(updateUser, HttpStatus.I_AM_A_TEAPOT);
+	// May need to change the {id} to respective personId in controllers **
+	@PutMapping("/updatePerson/{id}")
+	public ResponseEntity<Person> updatePerson(@RequestBody Person person, @PathVariable Long personId) {
+		Person updatePerson = service.updatePerson(person, personId);
+		return new ResponseEntity<Person>(updatePerson, HttpStatus.I_AM_A_TEAPOT);
 	}
 
-	@DeleteMapping("/deleteUser/{id}")
-	public ResponseEntity<Boolean> deleteUser(@PathVariable Long userId) {
-		Boolean deletedUser = service.deleteUser(userId);
-		return (deletedUser) ? new ResponseEntity<Boolean>(HttpStatus.NO_CONTENT)
+	@DeleteMapping("/deletePerson/{id}")
+	public ResponseEntity<Boolean> deletePerson(@PathVariable Long personId) {
+		Boolean deletedPerson = service.deletePerson(personId);
+		return (deletedPerson) ? new ResponseEntity<Boolean>(HttpStatus.NO_CONTENT)
 				: new ResponseEntity<Boolean>(HttpStatus.NOT_FOUND);
 	}
 
