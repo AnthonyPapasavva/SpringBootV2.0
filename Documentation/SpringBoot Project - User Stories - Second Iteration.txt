@@ -1,0 +1,17 @@
+SpringBoot Project - User Stories - Second Iteration:
+
+Must Have; CRUD Functionality:
+- As a User I want to be able to create new ‘to dos'.
+- As a User I want to be able to read ‘to dos'.
+- As a User I want to be able to update ‘to dos'.
+- As a User I want to be able to delete ‘to dos'.
+
+Should Have; Further Desired Functionality:
+- As a User I want to be able to have my 'to dos' be saved for later.
+- As a User I want to be able to easily access, navigate, and use my To Do List.
+
+Could Have;
+- As a User I want to be able to use the To Do List on a remote device.
+
+Won't Have;
+- As a User I want security (via log-in page) to secure my To Do List/Data.
