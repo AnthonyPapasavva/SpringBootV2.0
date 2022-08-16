@@ -11,6 +11,78 @@ const deleteAppointmentModal = document.getElementById('deleteAppointmentModal')
 const backDrop = document.getElementById('modalBackDrop');
 const appointmentTitleInput = document.getElementById('appointmentTitleInput');
 
+// Frontend works however changes need to be made so that we can use fetchapis to link front and back end (may have to delete functionality here to meet spec :'( )
+
+// insert the data at the same time its generated in the function planner
+
+const toDoURL = "http://localhost:8085/todo"
+const personURL = "http://localhost:8085/person"
+
+const createToDo = () => {
+    const newToDo = newToDo.value;
+
+    let data = {
+        "toDoTitle": newToDoTitleCreate,
+        "toDoItem": newToDoItemCreate,
+        "toDoComplete": false
+    }
+
+    fetch(`${toDoURL}/createToDo`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => response.json()).then(model => {console.log(model);
+        read();
+        })
+        .catch(err => console.error(`error ${err}`));
+};
+
+// 
+
+const readToDo = () => {
+    fetch(`${toDoURL}/read`).then
+
+
+
+}
+
+
+
+
+
+const toggleCompleteToDo = (toDoId, completed) => {
+    let data = {
+        "toDoComplete": completed ? false : true
+    }
+
+    fetch(`${toDoURL}/updateToDo/${toDoId}`, {
+        method: "PUT",
+        body: JSON.stringify(date),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => response.json()).then(model => {
+            console.log(model);
+            readAllToDo();
+        })
+        .catch(err => console.error(`error ${err}`));
+}
+
+const deleteToDo = (toDoId) => {
+    fetch(`${toDoURL}/deleteToDo/${toDoId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => console.log(response)).then(() => readAllToDo())
+        .catch(err => console.error(`error ${err}`));
+}
+
 function planner() {
     const date = new Date();
 
@@ -68,6 +140,26 @@ function planner() {
     }
 }
 
+function buttons(){
+    document.getElementById('previousButton').addEventListener('click', () => {
+        nav--;
+        planner();
+    });
+    document.getElementById('nextButton').addEventListener('click', () => {
+        nav++;
+        planner();
+    });
+
+    document.getElementById('homeButton').onclick = function (){
+        location.href = "index.html";
+    };
+
+    document.getElementById('saveButton').addEventListener('click', saveAppointment);
+    document.getElementById('cancelButton').addEventListener('click', closeModal);
+    document.getElementById('deleteButton').addEventListener('click', deleteAppointment);
+    document.getElementById('closeButton').addEventListener('click', closeModal);
+}
+
 function openModal(date){
     clicked = date;
     const appointmentForDay = appointments.find(e => e.date === clicked);
@@ -95,6 +187,8 @@ function closeModal(){
 
 }
 
+//change functions to not diaplsy info insetad to send info and then run read all 
+
 function saveAppointment(){
     if (appointmentTitleInput.value) {
         appointmentTitleInput.classList.remove('error');
@@ -116,26 +210,6 @@ function deleteAppointment(){
     appointments = appointments.filter(e => e.date !== clicked);
     localStorage.setItem('appointments', JSON.stringify(appointments)); 
     closeModal();
-}
-
-function buttons(){
-    document.getElementById('previousButton').addEventListener('click', () => {
-        nav--;
-        planner();
-    });
-    document.getElementById('nextButton').addEventListener('click', () => {
-        nav++;
-        planner();
-    });
-
-    document.getElementById('homeButton').onclick = function (){
-        location.href = "index.html";
-    };
-
-    document.getElementById('saveButton').addEventListener('click', saveAppointment);
-    document.getElementById('cancelButton').addEventListener('click', closeModal);
-    document.getElementById('deleteButton').addEventListener('click', deleteAppointment);
-    document.getElementById('closeButton').addEventListener('click', closeModal);
 }
 
 planner();
