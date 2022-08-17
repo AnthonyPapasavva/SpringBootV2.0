@@ -10,7 +10,16 @@ const deleteAppointmentModal = document.getElementById('deleteAppointmentModal')
 
 const backDrop = document.getElementById('modalBackDrop');
 const appointmentTitleInput = document.getElementById('appointmentTitleInput');
+const appointmentItemInput = document.getElementById('appointmentItemInput');
+const appointmentCompleteInput = document.getElementById('appointmentCompleteInput');
 
+const editToDoId = document.getElementById('appointmentToDoIdUpdate');
+const appointmentCompleteUpdate = document.getElementById('appointmentCompleteUpdate');
+const appointmentTitleUpdate = document.getElementById('appointmentTitleUpdate');
+const appointmentItemUpdate = document.getElementById('appointmentItemUpdate');
+
+const appointmentToDoIdDelete = document.getElementById('appointmentToDoIdDelete');
+// Frontend works however changes need to be made so that we can use fetchapis to link
 // Frontend works however changes need to be made so that we can use fetchapis to link front and back end (may have to delete functionality here to meet spec :'( )
 
 // insert the data at the same time its generated in the function planner
@@ -19,67 +28,90 @@ const toDoURL = "http://localhost:8085/todo"
 const personURL = "http://localhost:8085/person"
 
 const createToDo = () => {
-    const newToDo = newToDo.value;
+    const appointmentTitleCreate = appointmentTitleInput.value;
+    const appointmentItemCreate = appointmentItemInput.value;
+    const appointmentCompleteCreate = appointmentCompleteInput.value;
 
-    let data = {
-        "toDoTitle": newToDoTitleCreate,
-        "toDoItem": newToDoItemCreate,
-        "toDoComplete": false
+    let toDoTitleObject = {
+        "toDoTitle": appointmentTitleCreate,
+        "toDoItem": appointmentItemCreate,
+        "toDoComplete": appointmentCompleteCreate
     }
 
     fetch(`${toDoURL}/createToDo`, {
         method: "POST",
-        body: JSON.stringify(data),
+        body: JSON.stringify(toDoTitleObject),
         headers: {
             "Content-Type": "application/json"
         }
-    })
+        })
         .then(response => response.json()).then(model => {console.log(model);
-        read();
+        readToDo();
         })
         .catch(err => console.error(`error ${err}`));
-};
-
-// 
-
-const readToDo = () => {
-    fetch(`${toDoURL}/read`).then
-
-
 
 }
 
+const readToDo = () => {
+    fetch(`${toDoURL}/read`).then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        appendData(data);
+    })
+    .catch(function (err) {
+        console.log('error: ' + err);
+    });
+        function appendData(toDoTitleObject) {
+            var ToDoContainer = document.getElementById("ReadToDo");
+            ToDoContainer.textContent = '';
+            for (var i = 0; i < toDoTitleObject.length; i++) {
+                var div = document.createElement("div");
+                div.innerHTML = 'To Do Title: ' + toDoTitleObject[i].toDoTitle  + ' To Do Item: ' + toDoTitleObject[i].toDoItem + ' To Do Complete: ' + toDoTitleObject[i].toDoComplete;
+                ToDoContainer.appendChild(div);
+                }
+                };
 
+}
 
+// Need to print Ids for read function
 
+const updateToDo = (toDoId, completed) => {
+    const editToDoIdW = editToDoId.value;
+    const appointmentCompleteUpdateW = appointmentCompleteUpdate.value;
 
-const toggleCompleteToDo = (toDoId, completed) => {
-    let data = {
-        "toDoComplete": completed ? false : true
+    let toDoTitleObject = {
+        "toDoIdChange": editToDoIdW,
+        "toDoTitle": "completed",
+        "toDoItem": "completed",
+        "toDoComplete": appointmentCompleteUpdateW
     }
 
-    fetch(`${toDoURL}/updateToDo/${toDoId}`, {
+    fetch(`${toDoURL}/updateToDo/${editToDoIdW}`, {
         method: "PUT",
-        body: JSON.stringify(date),
+        body: JSON.stringify(toDoTitleObject),
         headers: {
             "Content-Type": "application/json"
         }
     })
         .then(response => response.json()).then(model => {
             console.log(model);
-            readAllToDo();
+            readToDo();
         })
         .catch(err => console.error(`error ${err}`));
 }
 
-const deleteToDo = (toDoId) => {
-    fetch(`${toDoURL}/deleteToDo/${toDoId}`, {
+const deleteToDo = () => {
+    const appointmentToDoIdDeleteW = appointmentToDoIdDelete.value;
+
+    fetch(`${toDoURL}/deleteToDo/${appointmentToDoIdDeleteW}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"
         }
     })
-        .then(response => console.log(response)).then(() => readAllToDo())
+        .then(response => console.log(response)).then(() => { readToDo();
+        })
         .catch(err => console.error(`error ${err}`));
 }
 
@@ -150,11 +182,7 @@ function buttons(){
         planner();
     });
 
-    document.getElementById('homeButton').onclick = function (){
-        location.href = "index.html";
-    };
-
-    document.getElementById('saveButton').addEventListener('click', saveAppointment);
+    // document.getElementById('saveButton').addEventListener('click', createToDo);
     document.getElementById('cancelButton').addEventListener('click', closeModal);
     document.getElementById('deleteButton').addEventListener('click', deleteAppointment);
     document.getElementById('closeButton').addEventListener('click', closeModal);
@@ -183,28 +211,28 @@ function closeModal(){
     backDrop.style.display = 'none';
     appointmentTitleInput.value = '';
     clicked = null;
-    planner();
 
 }
 
 //change functions to not diaplsy info insetad to send info and then run read all 
 
-function saveAppointment(){
-    if (appointmentTitleInput.value) {
-        appointmentTitleInput.classList.remove('error');
 
-        appointments.push({
-            date: clicked,
-            title: appointmentTitleInput.value,
-        });
+// function saveAppointment(){
+//     if (appointmentTitleInput.value) {
+//         appointmentTitleInput.classList.remove('error');
 
-        localStorage.setItem('appointments', JSON.stringify(appointments));
-        closeModal();
+//         appointments.push({
+//             date: clicked,
+//             title: appointmentTitleInput.value,
+//         });
 
-    } else {
-        appointmentTitleInput.classList.add('error');
-    }
-}
+//         localStorage.setItem('appointments', JSON.stringify(appointments));
+//         closeModal();
+
+//     } else {
+//         appointmentTitleInput.classList.add('error');
+//     }
+// }
 
 function deleteAppointment(){
     appointments = appointments.filter(e => e.date !== clicked);

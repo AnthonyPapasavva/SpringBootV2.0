@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GP Appointment Planner</title>
+    <title>Personal Planner</title>
     <link rel="stylesheet" href="CalendarStyle.css">
 
 </head>
@@ -14,7 +14,6 @@
             <div id="myHeader">
                 <div id="monthDisplay"></div>
                 <div>
-                    <button id="homeButton">Home</button>
                     <button id="previousButton">Previous</button>
                     <button id="nextButton">Next</button>
                 </div>
@@ -37,8 +36,10 @@
         <div id="newAppointmentModal">
 
             <h2>New Appointment</h2>
-            <input id="appointmentTitleInput" placeholder="Appointment Title" />
-            <button id="saveButton">Save</button>
+            <input id="appointmentTitleInput" placeholder="New To Do" />
+            <input id="appointmentItemInput" placeholder="Description" />
+            <input id="appointmentCompleteInput" placeholder="Completed?" />
+            <button id="saveButton" onclick="createToDo()">Save</button>
             <button id="cancelButton">Cancel</button>
 
         </div>
@@ -52,7 +53,24 @@
 
         </div>
 
+        <div id="updateButton">
+            <h2>Update</h2>
+            <input id="appointmentToDoIdUpdate" placeholder="Which Task" />
+            <input id="appointmentCompleteUpdate" placeholder="Completed?" />
+        </div>
+
+        <div id="deleteButton2">
+            <h2>Delete</h2>
+            <input id="appointmentToDoIdDelete" placeholder="Which Task" />
+        </div>
+        
+        <button id="updateButton" onclick="updateToDo()">Update</button>
+        
+        <button id="deleteButton" onclick="deleteToDo()">Delete</button>
+
         <div id="modalBackDrop"></div>
+
+        <div id="ReadToDo"></div>
 
         <script src="CalendarScript.js"></script>
     </body>
